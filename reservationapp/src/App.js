@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ZoneList from './components/ZoneList';
+import ReservationForm from './components/ReservationForm';
+import ReservationList from './components/ReservationList';
 
 function App() {
+  const [reservations, setReservations] = useState([]);
+
+  const addReservation = (zone, timeslot) => {
+    setReservations([...reservations, { zone, timeslot }]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <nav className="navbar navbar-dark bg-primary">
+        <div className="container-fluid">
+          <span className="navbar-brand mb-0 h1">Reservation System</span>
+        </div>
+      </nav>
+      <div className="container mt-4">
+        <ZoneList />
+        <ReservationForm addReservation={addReservation} />
+        <ReservationList reservations={reservations} />
+      </div>
+    </>
   );
 }
 
